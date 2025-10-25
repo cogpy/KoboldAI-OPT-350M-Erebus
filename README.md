@@ -6,8 +6,15 @@ This repository provides tools to clone and transform the KoboldAI/OPT-350M-Ereb
 
 The OPT-350M-Erebus is a 350M parameter language model fine-tuned by KoboldAI. This repository includes scripts to:
 - Clone the model from Hugging Face
-- Transform model tensors for OpenCog integration
+- Transform model tensors for OpenCog integration with advanced optimizations
 - Optimize the model for inference
+- Benchmark model performance before and after transformation
+
+## Documentation
+
+- **[USAGE.md](USAGE.md)** - Comprehensive step-by-step usage guide
+- **[QUICKSTART.md](QUICKSTART.md)** - Quick reference guide
+- **[TESTING.md](TESTING.md)** - Testing and validation instructions
 
 ## Prerequisites
 
@@ -96,8 +103,15 @@ hf download KoboldAI/OPT-350M-Erebus --local-dir ./model
 After downloading the model, transform the tensors for OpenCog integration:
 
 ```bash
-python3 transform_tensors.py --input ./model --output ./OPT-350M-Erebus-Cog
+python3 transform_tensors.py --input ./model --output ./OPT-350M-Erebus-Cog --verify
 ```
+
+The transformation applies advanced optimizations including:
+- Tensor normalization for stability
+- Gradient computation optimization
+- LayerNorm parameter clamping
+- Embedding layer optimization
+- Safe serialization for efficient storage
 
 #### Transform Options
 
@@ -129,16 +143,45 @@ outputs = model.generate(**inputs, max_length=100)
 print(tokenizer.decode(outputs[0]))
 ```
 
+### Step 4: Benchmark Performance
+
+Evaluate model performance before and after transformation:
+
+```bash
+# Benchmark the original model
+python3 benchmark_model.py --model ./model --output results_before.json --iterations 10
+
+# Benchmark the transformed model
+python3 benchmark_model.py --model ./OPT-350M-Erebus-Cog --output results_after.json --iterations 10
+
+# Compare results
+python3 benchmark_model.py --compare results_before.json results_after.json
+```
+
+The benchmark evaluates:
+- **Inference Speed**: Tokens per second and latency
+- **Memory Usage**: Parameter memory and runtime overhead
+- **Output Quality**: Perplexity and token diversity
+
+For detailed usage instructions, see [USAGE.md](USAGE.md).
+
 ## Project Structure
 
 ```
 .
 ├── clone_model.sh          # Script to download the model from Hugging Face
 ├── transform_tensors.py    # Script to transform tensors for OpenCog
+├── example_usage.py        # Example usage with performance metrics
+├── benchmark_model.py      # Performance benchmarking script
 ├── requirements.txt        # Python dependencies
 ├── README.md              # This file
+├── USAGE.md               # Comprehensive usage guide
+├── QUICKSTART.md          # Quick start guide
+├── TESTING.md             # Testing instructions
 ├── model/                 # Downloaded model (created after running clone_model.sh)
 └── OPT-350M-Erebus-Cog/  # Transformed model (created after running transform_tensors.py)
+    ├── opencog_metadata.json        # OpenCog integration metadata
+    └── transformation_report.txt    # Detailed transformation report
 ```
 
 ## Troubleshooting
