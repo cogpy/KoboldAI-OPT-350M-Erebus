@@ -63,7 +63,9 @@ To test the full transformation pipeline:
 
 2. Then pull only the necessary files to test:
    ```bash
-   cd model && git lfs pull --include="config.json,tokenizer.json,vocab.json" && cd ..
+   cd model
+   git lfs pull --include="config.json,tokenizer.json,vocab.json"
+   cd ..
    ```
 
 3. Run the transformation:

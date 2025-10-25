@@ -18,6 +18,9 @@ def generate_text(model_path: str, prompt: str, max_length: int = 100, temperatu
         prompt: Input text prompt
         max_length: Maximum length of generated text
         temperature: Sampling temperature (higher = more random)
+    
+    Returns:
+        str: The generated text including the original prompt
     """
     print(f"Loading model from {model_path}...")
     
