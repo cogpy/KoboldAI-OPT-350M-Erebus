@@ -94,10 +94,13 @@ def transform_tensors_for_opencog(model_path: str, output_path: str, optimize: b
     tokenizer.save_pretrained(output_path)
     
     # Save additional metadata for OpenCog
+    # Version information
+    TRANSFORMATION_VERSION = "1.1.0"
+    
     metadata = {
         "source_model": "KoboldAI/OPT-350M-Erebus",
         "transformed_for": "OpenCog",
-        "transformation_version": "1.1.0",
+        "transformation_version": TRANSFORMATION_VERSION,
         "transformation_date": datetime.datetime.now().isoformat(),
         "model_type": config.model_type,
         "num_parameters": sum(p.numel() for p in model.parameters()),

@@ -39,7 +39,7 @@ def measure_memory_usage():
         return None
 
 
-def benchmark_inference_speed(model, tokenizer, test_prompts, max_length=50, num_iterations=10):
+def benchmark_inference_speed(model, tokenizer, test_prompts, max_length=50, num_iterations=10, use_sampling=False):
     """
     Benchmark inference speed of the model.
     
@@ -49,6 +49,7 @@ def benchmark_inference_speed(model, tokenizer, test_prompts, max_length=50, num
         test_prompts: List of prompts to test
         max_length: Maximum generation length
         num_iterations: Number of iterations per prompt
+        use_sampling: Whether to use sampling (True) or greedy decoding (False)
     
     Returns:
         dict: Benchmark results
@@ -67,6 +68,9 @@ def benchmark_inference_speed(model, tokenizer, test_prompts, max_length=50, num
     
     model.eval()
     
+    decoding_mode = "sampling" if use_sampling else "greedy"
+    print(f"Using {decoding_mode} decoding for consistent benchmarking")
+    
     for prompt in test_prompts:
         prompt_latencies = []
         
@@ -82,7 +86,7 @@ def benchmark_inference_speed(model, tokenizer, test_prompts, max_length=50, num
                 outputs = model.generate(
                     **inputs,
                     max_length=max_length,
-                    do_sample=False,  # Use greedy for consistency
+                    do_sample=use_sampling,
                     pad_token_id=tokenizer.pad_token_id,
                     eos_token_id=tokenizer.eos_token_id,
                 )
@@ -307,8 +311,9 @@ def run_full_benchmark(model_path: str, iterations: int = 10):
     }
     
     # 1. Inference Speed
+    # Test with greedy decoding for consistency and reproducibility
     benchmark_results["inference_speed"] = benchmark_inference_speed(
-        model, tokenizer, test_prompts, max_length=50, num_iterations=iterations
+        model, tokenizer, test_prompts, max_length=50, num_iterations=iterations, use_sampling=False
     )
     
     # 2. Memory Usage
