@@ -25,6 +25,13 @@ KoboldAI-OPT-350M-Erebus-Cog is a toolkit for cloning and transforming the Kobol
 ├── USAGE.md                # Comprehensive step-by-step usage guide
 ├── QUICKSTART.md           # Quick reference guide
 ├── TESTING.md              # Testing instructions
+├── docs/
+│   └── blueprint/          # Transformer-as-GitHub architecture mapping
+│       ├── README.md                  # Blueprint overview and index
+│       ├── TRANSFORMER_AS_GITHUB.md   # Main architecture mapping
+│       ├── TENSOR_MAPPING.md          # Tensor-to-file mapping
+│       ├── WORKFLOW_ACTIONS.md        # GitHub Actions as neural ops
+│       └── AGENTS_ATTENTION.md        # Agents as attention heads
 ├── model/                  # Downloaded model directory (gitignored)
 └── OPT-350M-Erebus-Cog/    # Transformed model output (gitignored)
 ```
@@ -108,3 +115,26 @@ After transformation, the output directory contains:
 - **RAM**: Minimum 8GB (16GB recommended)
 - **Disk**: Minimum 10GB free space
 - **GPU**: Optional, CUDA-compatible for faster inference
+
+## Blueprint Documentation
+
+The `docs/blueprint/` directory contains conceptual documentation mapping transformer architecture to GitHub repository structures:
+
+| Document | Description |
+|----------|-------------|
+| `TRANSFORMER_AS_GITHUB.md` | Complete mapping of transformer components to GitHub features |
+| `TENSOR_MAPPING.md` | Detailed tensor-to-file mapping with directory structures |
+| `WORKFLOW_ACTIONS.md` | GitHub Actions workflows representing forward/backward passes |
+| `AGENTS_ATTENTION.md` | Multi-head attention as parallel GitHub agents |
+
+### Key Mappings
+
+| Transformer | GitHub |
+|-------------|--------|
+| Model | Repository |
+| Layer | Directory |
+| Tensor | File (.safetensor) |
+| Forward Pass | GitHub Actions Workflow |
+| Attention Head | Parallel Job / Agent |
+| Training Step | Commit |
+| Checkpoint | Release / Tag |
